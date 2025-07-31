@@ -195,10 +195,67 @@ ng build --configuration production
 
 ---
 
-## ✅ Next Step
+## ✅ IMPLEMENTED FEATURES
 
-Would you like to:
+### 1. Project Initialization & Architecture
+- ✅ Angular CLI 17+ project scaffolded with routing and standalone setup
+- ✅ TailwindCSS + DaisyUI fully configured
+- ✅ Modern folder structure:
+  - `core/`: services, interceptors, guards
+  - `features/`: auth, dashboard, etc.
+  - `shared/`: reusable UI components (future work)
+- ✅ `app.config.ts` used with `provideRouter()` and `provideHttpClient()` — modern bootstrapping
 
-* Generate a starter Angular app with Tailwind, DaisyUI, and Signals preconfigured?
-* Scaffold the feature modules and routing config for each endpoint?
-* Create a README template for this project?
+### 2. Authentication Workflow
+- ✅ `LoginComponent` built using SCAM (Standalone Component Angular Module)
+- ✅ Form uses **Reactive Forms** with validation
+- ✅ UI is styled using Tailwind + DaisyUI
+- ✅ Success message shown after login via Angular **Signals**
+- ✅ Login form hidden upon success; restored on logout
+- ✅ LoginComponent refactored to use `templateUrl` for maintainability
+
+### 3. AuthService (Signals + JWT)
+- ✅ Fully reactive `AuthService` using Angular **Signals**
+- ✅ JWT stored in `localStorage`
+- ✅ Decodes JWT payload to populate `User` signal state
+- ✅ Reactive signals:
+  - `user`
+  - `isLoggedIn`
+  - `loginSuccessMessage`
+
+### 4. API Integration
+- ✅ `ApiService` introduced to centralize base URL logic (`https://localhost:7000`)
+- ✅ Token handling abstracted into function-based **`authInterceptor`**
+- ✅ Angular's `withInterceptors()` used for modern DI
+
+### 5. Logout Flow
+- ✅ `Logout()` implemented via `AuthService`
+- ✅ Clears token and user state
+- ✅ Restores login form view with form reset
+- ✅ Logout button available in `AppComponent`
+
+---
+
+## 🔥 CHALLENGES OVERCOME
+
+| Challenge                                | How You Solved It                                                |
+|------------------------------------------|------------------------------------------------------------------|
+| ❌ Tailwind v4 broke with Angular         | ➜ Downgraded to Tailwind v3.4.1 (fully supported by Angular CLI) |
+| ❌ Used class-based interceptor with `withInterceptors()` | ➜ Switched to function-based interceptor (`HttpInterceptorFn`) |
+| ❌ `effect()` used in `ngOnInit()`        | ➜ Moved to constructor (proper injection context)                |
+| ❌ Login API returned token in `.data`    | ➜ Updated `AuthService` to parse response format correctly       |
+| ❌ Template couldn’t access private `auth`| ➜ Made injected `auth` service public in component               |
+| ❌ Login form not visible on app start    | ➜ Refined `*ngIf` condition to display correctly on init         |
+
+---
+
+## 🧠 WHAT YOU’VE LEARNED
+
+- ✅ How to structure a modern Angular SPA with standalone components
+- ✅ How to use Angular **Signals** for reactive state instead of RxJS
+- ✅ How to build reusable services and interceptors using best practices
+- ✅ How to gracefully handle routing, navigation, JWT state, and auth flows
+- ✅ How to apply enterprise-grade patterns (SCAM, feature modules, centralized services)
+
+---
+
