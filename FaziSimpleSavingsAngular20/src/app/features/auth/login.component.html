@@ -1,0 +1,68 @@
+<div *ngIf="auth.loginSuccessMessage(); else loginForm" class="min-h-screen flex items-center justify-center p-10 bg-base-200">
+  <h1 class="text-3xl font-bold text-success text-center">
+    {{ auth.loginSuccessMessage() }}
+  </h1>
+</div>
+
+<div *ngIf="auth.isLoggedIn()" class="text-center my-6">
+  <button class="btn btn-outline btn-error" (click)="auth.logout()">Logout</button>
+</div>
+
+
+
+<ng-template #loginForm>
+  <div class="min-h-screen flex items-center justify-center bg-base-100 p-6">
+    <div class="w-full max-w-sm p-8 bg-base-200 rounded-lg shadow-lg">
+      <h1 class="text-2xl font-bold text-center mb-6">Login</h1>
+
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <!-- Email -->
+        <div class="mb-4">
+          <label class="label">
+            <span class="label-text">Email</span>
+          </label>
+          <input
+            type="email"
+            class="input input-bordered w-full"
+            formControlName="email"
+            placeholder="you@example.com"
+          />
+          <div
+            *ngIf="form.get('email')?.invalid && form.get('email')?.touched"
+            class="text-red-500 text-sm mt-1"
+          >
+            Valid email is required
+          </div>
+        </div>
+
+        <!-- Password -->
+        <div class="mb-6">
+          <label class="label">
+            <span class="label-text">Password</span>
+          </label>
+          <input
+            type="password"
+            class="input input-bordered w-full"
+            formControlName="password"
+            placeholder="••••••••"
+          />
+          <div
+            *ngIf="form.get('password')?.invalid && form.get('password')?.touched"
+            class="text-red-500 text-sm mt-1"
+          >
+            Password is required
+          </div>
+        </div>
+
+        <!-- Submit -->
+        <button
+          type="submit"
+          class="btn btn-primary w-full"
+          [disabled]="form.invalid"
+        >
+          Login
+        </button>
+      </form>
+    </div>
+  </div>
+</ng-template>
